@@ -13,3 +13,15 @@ Model names in the demo are display names; original provenance is retained in ea
 Catalog revision 12 adds SM8450 (SOC 36 / HTP V69) and SM8550 (SOC 43 / HTP V73): exact-target runtime, Zipformer Chinese/English, Zipformer Korean and NanoMax2/SenseVoiceSmall. SM8450 Chinese/English uses official AI Hub v0.64.0 contexts. SM8550 Chinese/English and both Korean packs are independently host-compiled from their original checkpoints with QNN EP 2.7.0 / QAIRT 2.51.0. SenseVoice uses upstream exact-SoC INT8 contexts. SM8450 and SM8550 hardware validation is pending; host compilation and hashes do not establish accuracy or latency. All 26 previous binary assets are unchanged. The catalog now contains 34 packs (8 runtimes and 26 models), with 14 of 40 model/SoC combinations unavailable. Whisper Small and NanoMax3 have no published packs for the two added targets. SM8650/SM8850 have prior device evidence. SA8155 remains an unpublished experimental DSP candidate. No CPU inference fallback is provided. Android 13+, arm64-v8a required.
 
 GitHub release assets contain binaries; the private Android source repository contains source, manifests and preparation tools only. Downloaded pack SHA256 values and per-file hashes are covered by an Ed25519-signed catalog. The Android APK pins the public verification key. Audio is not uploaded.
+
+## kangkyu Zipformer2 Korean — 0.14.0
+
+Original kangkyu/icefall-asr-ko-streaming-zipformer-174m checkpoint, Apache-2.0; no automotive fine-tuning.
+https://huggingface.co/kangkyu/icefall-asr-ko-streaming-zipformer-174m
+Independent FP32 export and strict FP16 QNN HTP compilation; chunk16, 2460-token Korean syllable vocabulary,
+116 encoder cache inputs and batched beam8 decoder/joiner. Public development controls and realtime parity
+validated on Honor FCP-AN10 / SM8650 only. This does not establish held-out broadcasting/automotive accuracy.
+Only the SM8650 pack is currently published; all seven other HTP targets remain unavailable for this family.
+The older zipformer_ko / KsponSpeech family is retired from the 0.14.0 app selector. Earlier immutable packs
+are retained for reproducibility; model choice does not silently fall back to them or to CPU inference.
+Catalog revision 13 adds one pack and preserves all 34 prior package descriptors and binary digests.
