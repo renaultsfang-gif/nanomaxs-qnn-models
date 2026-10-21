@@ -25,3 +25,24 @@ Only the SM8650 pack is currently published; all seven other HTP targets remain 
 The older zipformer_ko / KsponSpeech family is retired from the 0.14.0 app selector. Earlier immutable packs
 are retained for reproducibility; model choice does not silently fall back to them or to CPU inference.
 Catalog revision 13 adds one pack and preserves all 34 prior package descriptors and binary digests.
+
+## Zipformer Korean — 0.15.0
+
+The display name is now Zipformer Korean. Its source remains kangkyu's original Zipformer2
+checkpoint; model ID `zipformer2_ko` and the validated SM8650 binary pack remain unchanged.
+
+| Chipset | Download and execution | Hardware evidence |
+| --- | --- | --- |
+| SM8650 | FP16 HTP V75 encoder + beam8 heads | Honor public fixtures, live parity, offline regression |
+| SM8450 | Independently compiled FP16 HTP V69 context pack + existing exact runtime | Host compiled; device validation pending |
+| SM8550 | Independently compiled FP16 HTP V73 context pack + existing exact runtime | Host compiled; device validation pending |
+| SA8155 | Experimental W8A8 arm64 QNN model libraries + DSP V66 runtime; graph finalized on target | No SA8155 board/BSP validation |
+
+SA8155 is not an HTP context. Original FP32 graphs, public recurrent-state calibration,
+DSP-specific exact mask lowering and SDK 2.40 quantization produced the model libraries.
+They use the pinned Maven 2.51.0 DSP runtime candidate; BSP/unsigned-PD compatibility,
+DSP operator type/shape acceptance, recognition accuracy and latency require the actual board.
+The app marks this package Experimental DSP, verifies backendId=5 and performs strict DSP
+graph composition/finalization. Failure is reported; CPU inference is never substituted.
+Original runtime licenses, model provenance and code licenses accompany the packs.
+No automotive fine-tuning is claimed. Prior 35 package descriptors and binary digests are preserved.
